@@ -5,11 +5,9 @@ local backdrop = {
 
 local checkbox = {
   ["blueshaman"]    = "Enable Blue Shaman Class Color",
-  ["clickthrough"]  = "Disable Mouse",
   ["showdebuffs"]   = "Show Debuffs on Target Nameplate",
   ["showcastbar"]   = "Show Castbar",
   ["spellname"]     = "Show Spellname On Castbar",
-  -- ["players"]       = "Only Show Player Nameplates",
   ["showhp"]        = "Display HP",
   ["enemyclassc"]   = "Enable Enemy Class Colors",
   ["friendclassc"]  = "Enable Friend Class Colors",
@@ -27,12 +25,10 @@ pfConfigCreate:RegisterEvent("VARIABLES_LOADED")
 function pfConfigCreate:ResetConfig()
   pfNameplates_config = { }
   pfNameplates_config["blueshaman"] = "1"
-  pfNameplates_config["clickthrough"] = "0"
   pfNameplates_config["raidiconsize"] = "16"
-  pfNameplates_config["showdebuffs"] = "0"
+  pfNameplates_config["showdebuffs"] = "1"
   pfNameplates_config["showcastbar"] = "1"
   pfNameplates_config["spellname"] = "1"
-  -- pfNameplates_config["players"] = "0"
   pfNameplates_config["showhp"] = "0"
   pfNameplates_config["vpos"] = "0"
   pfNameplates_config["clickthreshold"] = ".5"
