@@ -23,7 +23,6 @@ for _, nameplate in ipairs({WorldFrame:GetChildren()}) do
 
 			--If we actually have a nameplate found, then continue (will only get to this point for each nameplate on the screen). i.e. 3 mobs = called 3 times
 			if regions and regions:GetObjectType() == "Texture" and regions:GetTexture() == "Interface\\Tooltips\\Nameplate-Border" then
-				DEFAULT_CHAT_FRAME:AddMessage("and here three")
 				nameplate:Hide()
 				nameplate:SetScript("OnShow", function() pfNameplates:CreateNameplate() end)
 				nameplate:SetScript("OnUpdate", function() pfNameplates:UpdateNameplate() end)
@@ -35,10 +34,29 @@ for _, nameplate in ipairs({WorldFrame:GetChildren()}) do
 	end
 end)
 
+function GetNameAndLevel()
+	  local name, level
+	for regions = this:GetNumRegions(),1,-1 do
+		local region = select(regions, this:GetRegions())
+		if region:GetObjectType() == "FontString" then
+			--check if the string contains only a number. In that case, it's the level of the NPC/Mob.
+			if(region:GetText():match("%d")) then
+		    	level = region
+			--it's not just a number, therefore it's the npc name.
+			else
+				name = region
+			end
+		end
+	end
+
+	return name, level
+end
+
 -- Create Nameplate
 function pfNameplates:CreateNameplate()
   local healthbar = this:GetChildren()
-  local border, glow, name, level, levelicon , raidicon = this:GetRegions()
+  local name, level = GetNameAndLevel()
+  local border, glow, levelicon, raidicon = this:GetRegions()
 
   -- hide default plates
   border:Hide()
@@ -79,7 +97,6 @@ function pfNameplates:CreateNameplate()
   raidicon:SetPoint("CENTER", healthbar, "CENTER", 0, -5)
 
   -- adjust font
-  DEFAULT_CHAT_FRAME:AddMessage(name)
   name:SetFont(STANDARD_TEXT_FONT,12,"OUTLINE")
   name:SetPoint("BOTTOM", healthbar, "CENTER", 0, 7)
   level:SetFont(STANDARD_TEXT_FONT,12, "OUTLINE")
@@ -204,7 +221,8 @@ function pfNameplates:UpdateNameplate()
   if not this.setup then pfNameplates:CreateNameplate() return end
 
   local healthbar = this:GetChildren()
-  local border, glow, name, level, levelicon , raidicon = this:GetRegions()
+  local name, level = GetNameAndLevel()
+  local border, glow, levelicon, raidicon = this:GetRegions()
 
   if pfNameplates_config.players == "1" then
     if not pfNameplates.players[name:GetText()] or not pfNameplates.players[name:GetText()]["class"] then
@@ -217,7 +235,6 @@ function pfNameplates:UpdateNameplate()
   pfNameplates:UpdateCastbar(this, name, healthbar)
   pfNameplates:UpdateDebuffs(this, healthbar)
   pfNameplates:UpdateHP(healthbar)
-  pfNameplates:UpdateClickHandler(this)
 end
 
 function pfNameplates:UpdatePlayer(name)
@@ -225,7 +242,6 @@ function pfNameplates:UpdatePlayer(name)
 
   -- target
   if not pfNameplates.players[name] and pfNameplates.targets[name] == nil and UnitName("target") == nil then
-    TargetByName(name, true)
     if UnitIsPlayer("target") then
       local _, class = UnitClass("target")
       pfNameplates.players[name] = {}
@@ -380,27 +396,6 @@ function pfNameplates:UpdateHP(healthbar)
   end
 end
 
-function pfNameplates:UpdateClickHandler(frame)
-  -- enable clickthrough
-  if pfNameplates_config["clickthrough"] == "0" then
-    frame:EnableMouse(true)
-    if pfNameplates_config["rightclick"] == "1" then
-      frame:SetScript("OnMouseDown", function()
-        if arg1 and arg1 == "RightButton" then
-          MouselookStart()
-
-          -- start detection of the rightclick emulation
-          pfNameplates.emulateRightClick.time = GetTime()
-          pfNameplates.emulateRightClick.frame = this
-          pfNameplates.emulateRightClick:Show()
-        end
-      end)
-    end
-  else
-    frame:EnableMouse(false)
-  end
-end
-
 -- debuff detection
 pfNameplates:RegisterEvent("PLAYER_TARGET_CHANGED")
 pfNameplates:RegisterEvent("UNIT_AURA")
@@ -424,31 +419,5 @@ pfNameplates.combat:SetScript("OnEvent", function()
     this.inCombat = 1
   elseif event == "PLAYER_LEAVE_COMBAT" then
     this.inCombat = nil
-  end
-end)
-
--- emulate fake rightclick
-pfNameplates.emulateRightClick = CreateFrame("Frame", nil, UIParent)
-pfNameplates.emulateRightClick.time = nil
-pfNameplates.emulateRightClick.frame = nil
-pfNameplates.emulateRightClick:SetScript("OnUpdate", function()
-  -- break here if nothing to do
-  if not pfNameplates.emulateRightClick.time or not pfNameplates.emulateRightClick.frame then
-    this:Hide()
-    return
-  end
-
-  -- if threshold is reached (0.5 second) no click action will follow
-  if not IsMouselooking() and pfNameplates.emulateRightClick.time + tonumber(pfNameplates_config["clickthreshold"]) < GetTime() then
-    pfNameplates.emulateRightClick:Hide()
-    return
-  end
-
-  -- run a usual nameplate rightclick action
-  if not IsMouselooking() then
-    pfNameplates.emulateRightClick.frame:Click("LeftButton")
-    if UnitCanAttack("player", "target") and not pfNameplates.combat.inCombat then AttackTarget() end
-    pfNameplates.emulateRightClick:Hide()
-    return
   end
 end)

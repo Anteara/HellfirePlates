@@ -11,13 +11,11 @@ local checkbox = {
   ["spellname"]     = "Show Spellname On Castbar",
   -- ["players"]       = "Only Show Player Nameplates",
   ["showhp"]        = "Display HP",
-  ["rightclick"]    = "Enable Mouselook on Right-Click",
   ["enemyclassc"]   = "Enable Enemy Class Colors",
   ["friendclassc"]  = "Enable Friend Class Colors",
 }
 
 local text = {
-  ["clickthreshold"] = "Right-Click Threshold",
   ["vpos"]           = "Vertical Offset",
   ["raidiconsize"]   = "Raid Icon Size",
 }
@@ -37,7 +35,6 @@ function pfConfigCreate:ResetConfig()
   -- pfNameplates_config["players"] = "0"
   pfNameplates_config["showhp"] = "0"
   pfNameplates_config["vpos"] = "0"
-  pfNameplates_config["rightclick"] = "1"
   pfNameplates_config["clickthreshold"] = ".5"
   pfNameplates_config["enemyclassc"] = "1"
   pfNameplates_config["friendclassc"] = "1"
