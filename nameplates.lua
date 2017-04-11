@@ -13,19 +13,26 @@ pfNameplates.players = {}
 pfNameplates.scanner = CreateFrame("Frame", "pfNameplateScanner", UIParent)
 pfNameplates.scanner.objects = {}
 pfNameplates.scanner:SetScript("OnUpdate", function()
-  for _, nameplate in ipairs({WorldFrame:GetChildren()}) do
-    if not nameplate.done and nameplate:GetObjectType() == "Button" then
-      local regions = nameplate:GetRegions()
-      if regions and regions:GetObjectType() == "Texture" and regions:GetTexture() == "Interface\\Tooltips\\Nameplate-Border" then
-        nameplate:Hide()
-        nameplate:SetScript("OnShow", function() pfNameplates:CreateNameplate() end)
-        nameplate:SetScript("OnUpdate", function() pfNameplates:UpdateNameplate() end)
-        nameplate:Show()
-        table.insert(this.objects, nameplate)
-        nameplate.done = true
-      end
-    end
-  end
+
+--Loop through all children of the WorldFrame. We want to find some nameplates! called infinitely.
+for _, nameplate in ipairs({WorldFrame:GetChildren()}) do
+	
+    --if nameplate.done == false (a key we made up, in order to determine if that nameplate has been deleted yet), then continue.
+	if not nameplate.done then --can cause a bug if the .done doesn't exist.
+		local regions = nameplate:GetRegions()
+
+			--If we actually have a nameplate found, then continue (will only get to this point for each nameplate on the screen). i.e. 3 mobs = called 3 times
+			if regions and regions:GetObjectType() == "Texture" and regions:GetTexture() == "Interface\\Tooltips\\Nameplate-Border" then
+				DEFAULT_CHAT_FRAME:AddMessage("and here three")
+				nameplate:Hide()
+				nameplate:SetScript("OnShow", function() pfNameplates:CreateNameplate() end)
+				nameplate:SetScript("OnUpdate", function() pfNameplates:UpdateNameplate() end)
+				nameplate:Show()
+				table.insert(this.objects, nameplate)
+				nameplate.done = true
+			end
+		end
+	end
 end)
 
 -- Create Nameplate
@@ -72,6 +79,7 @@ function pfNameplates:CreateNameplate()
   raidicon:SetPoint("CENTER", healthbar, "CENTER", 0, -5)
 
   -- adjust font
+  DEFAULT_CHAT_FRAME:AddMessage(name)
   name:SetFont(STANDARD_TEXT_FONT,12,"OUTLINE")
   name:SetPoint("BOTTOM", healthbar, "CENTER", 0, 7)
   level:SetFont(STANDARD_TEXT_FONT,12, "OUTLINE")
