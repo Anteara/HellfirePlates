@@ -36,48 +36,48 @@ pfCastbar.casterDB = {}
 pfCastbar:SetScript("OnEvent", function()
   if arg1 then
     -- (.+) begins to cast (.+).
-    for mob, spell in string.gfind(arg1, pfCastbar.SPELL_CAST) do
+    for mob, spell in string.gmatch(arg1, pfCastbar.SPELL_CAST) do
       pfCastbar:Action(mob, spell)
       return
     end
     -- (.+) begins to perform (.+).
-    for mob, spell in string.gfind(arg1, pfCastbar.SPELL_PERFORM) do
+    for mob, spell in string.gmatch(arg1, pfCastbar.SPELL_PERFORM) do
       pfCastbar:Action(mob, spell)
       return
     end
 
     -- (.+) gains (.+).
-    for mob, spell in string.gfind(arg1, pfCastbar.SPELL_GAINS) do
+    for mob, spell in string.gmatch(arg1, pfCastbar.SPELL_GAINS) do
       pfCastbar:StopAction(mob, spell)
       return
     end
 
     -- (.+) is afflicted by (.+).
-    for mob, spell in string.gfind(arg1, pfCastbar.SPELL_AFFLICTED) do
+    for mob, spell in string.gmatch(arg1, pfCastbar.SPELL_AFFLICTED) do
       pfCastbar:StopAction(mob, spell)
       return
     end
 
     -- Your (.+) hits (.+) for %d+.
-    for spell, mob in string.gfind(arg1, pfCastbar.SPELL_HIT) do
+    for spell, mob in string.gmatch(arg1, pfCastbar.SPELL_HIT) do
       pfCastbar:StopAction(mob, spell)
       return
     end
 
     -- Your (.+) crits (.+) for %d+.
-    for spell, mob in string.gfind(arg1, pfCastbar.SPELL_CRIT) do
+    for spell, mob in string.gmatch(arg1, pfCastbar.SPELL_CRIT) do
       pfCastbar:StopAction(mob, spell)
       return
     end
 
     -- (.+)'s (.+) %a hits (.+) for %d+.
-    for _, spell, mob in string.gfind(arg1, pfCastbar.OTHER_SPELL_HIT) do
+    for _, spell, mob in string.gmatch(arg1, pfCastbar.OTHER_SPELL_HIT) do
       pfCastbar:StopAction(mob, spell)
       return
     end
 
     -- (.+)'s (.+) %a crits (.+) for %d+.
-    for _, spell, mob in string.gfind(arg1, pfCastbar.OTHER_SPELL_CRIT) do
+    for _, spell, mob in string.gmatch(arg1, pfCastbar.OTHER_SPELL_CRIT) do
       pfCastbar:StopAction(mob, spell)
       return
     end
