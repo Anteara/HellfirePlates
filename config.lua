@@ -41,103 +41,103 @@ pfConfigCreate:SetScript("OnEvent", function()
     pfConfigCreate:ResetConfig()
   end
 
-  ShaguPlatesConfig:Initialize()
+  HellfirePlatesConfig:Initialize()
 
   if pfNameplates_config.blueshaman == "1" then
     RAID_CLASS_COLORS["SHAMAN"] = { r = 0.14, g = 0.35, b = 1.0, colorStr = "ff0070de" }
   end
 end)
 
-ShaguPlatesConfig = ShaguPlatesConfig or CreateFrame("Frame", "ShaguPlatesConfig", UIParent)
-function ShaguPlatesConfig:Initialize()
-  ShaguPlatesConfig:Hide()
-  ShaguPlatesConfig:SetBackdrop(backdrop)
-  ShaguPlatesConfig:SetBackdropColor(0,0,0,1)
-  ShaguPlatesConfig:SetWidth(400)
-  ShaguPlatesConfig:SetHeight(500)
-  ShaguPlatesConfig:SetPoint("CENTER", 0, 0)
-  ShaguPlatesConfig:SetMovable(true)
-  ShaguPlatesConfig:EnableMouse(true)
-  ShaguPlatesConfig:SetScript("OnMouseDown",function()
-    ShaguPlatesConfig:StartMoving()
+HellfirePlatesConfig = HellfirePlatesConfig or CreateFrame("Frame", "HellfirePlatesConfig", UIParent)
+function HellfirePlatesConfig:Initialize()
+  HellfirePlatesConfig:Hide()
+  HellfirePlatesConfig:SetBackdrop(backdrop)
+  HellfirePlatesConfig:SetBackdropColor(0,0,0,1)
+  HellfirePlatesConfig:SetWidth(400)
+  HellfirePlatesConfig:SetHeight(500)
+  HellfirePlatesConfig:SetPoint("CENTER", 0, 0)
+  HellfirePlatesConfig:SetMovable(true)
+  HellfirePlatesConfig:EnableMouse(true)
+  HellfirePlatesConfig:SetScript("OnMouseDown",function()
+    HellfirePlatesConfig:StartMoving()
   end)
 
-  ShaguPlatesConfig:SetScript("OnMouseUp",function()
-    ShaguPlatesConfig:StopMovingOrSizing()
+  HellfirePlatesConfig:SetScript("OnMouseUp",function()
+    HellfirePlatesConfig:StopMovingOrSizing()
   end)
 
-  ShaguPlatesConfig.vpos = 60
+  HellfirePlatesConfig.vpos = 60
 
-  ShaguPlatesConfig.title = CreateFrame("Frame", nil, ShaguPlatesConfig)
-  ShaguPlatesConfig.title:SetPoint("TOP", 0, -2);
-  ShaguPlatesConfig.title:SetWidth(396);
-  ShaguPlatesConfig.title:SetHeight(40);
-  ShaguPlatesConfig.title.tex = ShaguPlatesConfig.title:CreateTexture("LOW");
-  ShaguPlatesConfig.title.tex:SetAllPoints();
-  ShaguPlatesConfig.title.tex:SetTexture(0,0,0,.5);
+  HellfirePlatesConfig.title = CreateFrame("Frame", nil, HellfirePlatesConfig)
+  HellfirePlatesConfig.title:SetPoint("TOP", 0, -2);
+  HellfirePlatesConfig.title:SetWidth(396);
+  HellfirePlatesConfig.title:SetHeight(40);
+  HellfirePlatesConfig.title.tex = HellfirePlatesConfig.title:CreateTexture("LOW");
+  HellfirePlatesConfig.title.tex:SetAllPoints();
+  HellfirePlatesConfig.title.tex:SetTexture(0,0,0,.5);
 
-  ShaguPlatesConfig.caption = ShaguPlatesConfig.caption or ShaguPlatesConfig.title:CreateFontString("Status", "LOW", "GameFontWhite")
-  ShaguPlatesConfig.caption:SetPoint("TOP", 0, -10)
-  ShaguPlatesConfig.caption:SetJustifyH("CENTER")
-  ShaguPlatesConfig.caption:SetText("ShaguPlates")
-  ShaguPlatesConfig.caption:SetFont("Interface\\AddOns\\ShaguPlates\\fonts\\arial.ttf", 24)
-  ShaguPlatesConfig.caption:SetTextColor(.2,1,.8,1)
+  HellfirePlatesConfig.caption = HellfirePlatesConfig.caption or HellfirePlatesConfig.title:CreateFontString("Status", "LOW", "GameFontWhite")
+  HellfirePlatesConfig.caption:SetPoint("TOP", 0, -10)
+  HellfirePlatesConfig.caption:SetJustifyH("CENTER")
+  HellfirePlatesConfig.caption:SetText("HellfirePlates")
+  HellfirePlatesConfig.caption:SetFont("Interface\\AddOns\\HellfirePlates\\fonts\\arial.ttf", 24)
+  HellfirePlatesConfig.caption:SetTextColor(.2,1,.8,1)
 
   for config, description in pairs(checkbox) do
-    ShaguPlatesConfig:CreateEntry(config, description, "checkbox")
+    HellfirePlatesConfig:CreateEntry(config, description, "checkbox")
   end
 
   for config, description in pairs(text) do
-    ShaguPlatesConfig:CreateEntry(config, description, "text")
+    HellfirePlatesConfig:CreateEntry(config, description, "text")
   end
 
-  ShaguPlatesConfig.reload = CreateFrame("Button", nil, ShaguPlatesConfig, "UIPanelButtonTemplate")
-  ShaguPlatesConfig.reload:SetWidth(150)
-  ShaguPlatesConfig.reload:SetHeight(30)
-  ShaguPlatesConfig.reload:SetNormalTexture(nil)
-  ShaguPlatesConfig.reload:SetHighlightTexture(nil)
-  ShaguPlatesConfig.reload:SetPushedTexture(nil)
-  ShaguPlatesConfig.reload:SetDisabledTexture(nil)
-  ShaguPlatesConfig.reload:SetBackdrop(backdrop)
-  ShaguPlatesConfig.reload:SetBackdropColor(0,0,0,1)
-  ShaguPlatesConfig.reload:SetPoint("BOTTOMRIGHT", -20, 20)
-  ShaguPlatesConfig.reload:SetText("Save")
-  ShaguPlatesConfig.reload:SetScript("OnClick", function()
+  HellfirePlatesConfig.reload = CreateFrame("Button", nil, HellfirePlatesConfig, "UIPanelButtonTemplate")
+  HellfirePlatesConfig.reload:SetWidth(150)
+  HellfirePlatesConfig.reload:SetHeight(30)
+  HellfirePlatesConfig.reload:SetNormalTexture(nil)
+  HellfirePlatesConfig.reload:SetHighlightTexture(nil)
+  HellfirePlatesConfig.reload:SetPushedTexture(nil)
+  HellfirePlatesConfig.reload:SetDisabledTexture(nil)
+  HellfirePlatesConfig.reload:SetBackdrop(backdrop)
+  HellfirePlatesConfig.reload:SetBackdropColor(0,0,0,1)
+  HellfirePlatesConfig.reload:SetPoint("BOTTOMRIGHT", -20, 20)
+  HellfirePlatesConfig.reload:SetText("Save")
+  HellfirePlatesConfig.reload:SetScript("OnClick", function()
     ReloadUI()
   end)
 
-  ShaguPlatesConfig.reset = CreateFrame("Button", nil, ShaguPlatesConfig, "UIPanelButtonTemplate")
-  ShaguPlatesConfig.reset:SetWidth(150)
-  ShaguPlatesConfig.reset:SetHeight(30)
-  ShaguPlatesConfig.reset:SetNormalTexture(nil)
-  ShaguPlatesConfig.reset:SetHighlightTexture(nil)
-  ShaguPlatesConfig.reset:SetPushedTexture(nil)
-  ShaguPlatesConfig.reset:SetDisabledTexture(nil)
-  ShaguPlatesConfig.reset:SetBackdrop(backdrop)
-  ShaguPlatesConfig.reset:SetBackdropColor(0,0,0,1)
-  ShaguPlatesConfig.reset:SetPoint("BOTTOMLEFT", 20, 20)
-  ShaguPlatesConfig.reset:SetText("Reset")
-  ShaguPlatesConfig.reset:SetScript("OnClick", function()
+  HellfirePlatesConfig.reset = CreateFrame("Button", nil, HellfirePlatesConfig, "UIPanelButtonTemplate")
+  HellfirePlatesConfig.reset:SetWidth(150)
+  HellfirePlatesConfig.reset:SetHeight(30)
+  HellfirePlatesConfig.reset:SetNormalTexture(nil)
+  HellfirePlatesConfig.reset:SetHighlightTexture(nil)
+  HellfirePlatesConfig.reset:SetPushedTexture(nil)
+  HellfirePlatesConfig.reset:SetDisabledTexture(nil)
+  HellfirePlatesConfig.reset:SetBackdrop(backdrop)
+  HellfirePlatesConfig.reset:SetBackdropColor(0,0,0,1)
+  HellfirePlatesConfig.reset:SetPoint("BOTTOMLEFT", 20, 20)
+  HellfirePlatesConfig.reset:SetText("Reset")
+  HellfirePlatesConfig.reset:SetScript("OnClick", function()
     pfNameplates_config = nil
     ReloadUI()
   end)
 end
 
-function ShaguPlatesConfig:CreateEntry(config, description, type)
+function HellfirePlatesConfig:CreateEntry(config, description, type)
   -- sanity check
   if not pfNameplates_config[config] then
     pfConfigCreate:ResetConfig()
   end
 
   -- basic frame
-  local frame = getglobal("SPC" .. config) or CreateFrame("Frame", "SPC" .. config, ShaguPlatesConfig)
+  local frame = getglobal("SPC" .. config) or CreateFrame("Frame", "SPC" .. config, HellfirePlatesConfig)
   frame:SetWidth(400)
   frame:SetHeight(25)
-  frame:SetPoint("TOP", 0, -ShaguPlatesConfig.vpos)
+  frame:SetPoint("TOP", 0, -HellfirePlatesConfig.vpos)
 
   -- caption
   frame.caption = frame.caption or frame:CreateFontString("Status", "LOW", "GameFontWhite")
-  frame.caption:SetFont("Interface\\AddOns\\ShaguPlates\\fonts\\arial.ttf", 14)
+  frame.caption:SetFont("Interface\\AddOns\\HellfirePlates\\fonts\\arial.ttf", 14)
   frame.caption:SetPoint("LEFT", 20, 0)
   frame.caption:SetJustifyH("LEFT")
   frame.caption:SetText(description)
@@ -185,16 +185,16 @@ function ShaguPlatesConfig:CreateEntry(config, description, type)
     end)
   end
 
-  ShaguPlatesConfig.vpos = ShaguPlatesConfig.vpos + 30
+  HellfirePlatesConfig.vpos = HellfirePlatesConfig.vpos + 30
 end
 
-SLASH_SHAGUPLATES1 = '/shaguplates'
-SLASH_SHAGUPLATES2 = '/sp'
+SLASH_SHAGUPLATES1 = '/hellfireplates'
+SLASH_SHAGUPLATES2 = '/hp'
 
 function SlashCmdList.SHAGUPLATES(msg)
-  if ShaguPlatesConfig:IsShown() then
-    ShaguPlatesConfig:Hide()
+  if HellfirePlatesConfig:IsShown() then
+    HellfirePlatesConfig:Hide()
   else
-    ShaguPlatesConfig:Show()
+    HellfirePlatesConfig:Show()
   end
 end

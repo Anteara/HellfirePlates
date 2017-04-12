@@ -1,6 +1,6 @@
 ## Interface: 20400
-## Title: |cff33ffccShagu|cffffffffPlates
-## Author: Shagu, 2016
+## Title: |cffff0000Hellfire|cffffffffPlates
+## Author: Created by Shagu, ported to TBC by Anteara
 ## Notes: Nameplate addon featuring castbars and class colors
 ## Version: 2.0
 ## SavedVariables: pfNameplates_config

@@ -3,7 +3,7 @@ pfNameplates = CreateFrame("Frame", nil, UIParent)
 pfNameplates:RegisterEvent("PLAYER_TARGET_CHANGED")
 pfNameplates:RegisterEvent("UNIT_AURA")
 
-local STANDARD_TEXT_FONT = "Interface\\AddOns\\ShaguPlates\\fonts\\arial.ttf"
+local STANDARD_TEXT_FONT = "Interface\\AddOns\\HellfirePlates\\fonts\\arial.ttf"
 
 pfNameplates.mobs = {}
 pfNameplates.targets = {}
@@ -34,29 +34,21 @@ for _, nameplate in ipairs({WorldFrame:GetChildren()}) do
 	end
 end)
 
-function GetNameAndLevel()
-	  local name, level
-	for regions = this:GetNumRegions(),1,-1 do
-		local region = select(regions, this:GetRegions())
-		if region:GetObjectType() == "FontString" then
-			--check if the string contains only a number. In that case, it's the level of the NPC/Mob.
-			if(region:GetText():match("%d")) then
-		    	level = region
-			--it's not just a number, therefore it's the npc name.
-			else
-				name = region
-			end
-		end
-	end
-
-	return name, level
-end
-
 -- Create Nameplate
 function pfNameplates:CreateNameplate()
   local healthbar = this:GetChildren()
-  local name, level = GetNameAndLevel()
-  local border, glow, levelicon, raidicon = this:GetRegions()
+  local _, levelicon
+
+  --First return type: Interface\\Tooltips\\Nameplate-Border
+  --Second return type: Interface\\Tooltips\\Nameplate-Border (also...?)
+  --Third return type: ?????????
+  --Fourth return type: Interface\\Tooltips\\Nameplate-Glow
+  --Fifth return type: Name of the Mob/NPC
+  --Sixth return type: Level of the Mob/NPC
+  --Seventh return type: Interface\\TargetingFrame\\UI-TargetingFrame-Skull (The elite border???)
+  --Eighth return type: Interface\\TargetingFrame\\UI-RaidTargetingIcons
+
+  local border, _, _, glow, name, level, levelicon, raidicon = this:GetRegions()
 
   -- hide default plates
   border:Hide()
@@ -73,7 +65,7 @@ function pfNameplates:CreateNameplate()
   end
 
   -- healthbar
-  healthbar:SetStatusBarTexture("Interface\\AddOns\\ShaguPlates\\img\\bar")
+  healthbar:SetStatusBarTexture("Interface\\AddOns\\HellfirePlates\\img\\bar")
   healthbar:ClearAllPoints()
   healthbar:SetPoint("TOP", this, "TOP", 0, tonumber(pfNameplates_config.vpos))
   healthbar:SetWidth(110)
@@ -156,7 +148,7 @@ function pfNameplates:CreateCastbar(healthbar)
     healthbar.castbar:SetBackdrop({  bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
                                      insets = {left = -1, right = -1, top = -1, bottom = -1} })
     healthbar.castbar:SetBackdropColor(0,0,0,1)
-    healthbar.castbar:SetStatusBarTexture("Interface\\AddOns\\ShaguPlates\\img\\bar")
+    healthbar.castbar:SetStatusBarTexture("Interface\\AddOns\\HellfirePlates\\img\\bar")
     healthbar.castbar:SetStatusBarColor(.9,.8,0,1)
 
     if healthbar.castbar.bg == nil then
@@ -221,8 +213,7 @@ function pfNameplates:UpdateNameplate()
   if not this.setup then pfNameplates:CreateNameplate() return end
 
   local healthbar = this:GetChildren()
-  local name, level = GetNameAndLevel()
-  local border, glow, levelicon, raidicon = this:GetRegions()
+  local border, glow, levelicon, raidicon, name, level = this:GetRegions()
 
   if pfNameplates_config.players == "1" then
     if not pfNameplates.players[name:GetText()] or not pfNameplates.players[name:GetText()]["class"] then
