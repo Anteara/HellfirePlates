@@ -80,11 +80,12 @@ local classColours =
 
 --The various slash commands that can be used to access the configuration frame.
 SLASH_SHAGUPLATES1 = '/hellfireplates'
-SLASH_SHAGUPLATES2 = '/hp'
-SLASH_SHAGUPLATES2 = '/hf'
-SLASH_SHAGUPLATES3 = '/plates'
-SLASH_SHAGUPLATES4 = '/nameplates'
-
+SLASH_SHAGUPLATES2 = '/hellfire'
+SLASH_SHAGUPLATES3 = '/hf'
+SLASH_SHAGUPLATES4 = '/hp'
+SLASH_SHAGUPLATES5 = '/hfp'
+SLASH_SHAGUPLATES6 = '/plates'
+SLASH_SHAGUPLATES7 = '/nameplates'
 --Function that will show or hide the configuration frame.
 function SlashCmdList.SHAGUPLATES(msg)
   if Hellfire_Options:IsShown() then

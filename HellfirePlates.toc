@@ -5,15 +5,7 @@
 ## Version: 2.0
 ## SavedVariables: pfNameplates_config
 
-env\compat.lua
-env\locales_deDE.lua
-env\locales_enUS.lua
-env\locales_frFR.lua
-env\locales_ruRU.lua
-env\locales_zhCN.lua
-
 HellfirePlates.xml
-
 castbar.lua
-config.lua
 nameplates.lua
+config.lua
