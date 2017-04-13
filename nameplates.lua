@@ -231,7 +231,7 @@ function pfNameplates:UpdateNameplate()
     end
   end
 
-  pfNameplates:UpdatePlayer(name)
+--   pfNameplates:UpdatePlayer(name)
   pfNameplates:UpdateColors(name, level, healthbar)
   pfNameplates:UpdateCastbar(this, name, healthbar)
   pfNameplates:UpdateDebuffs(this, healthbar)

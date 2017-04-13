@@ -10,6 +10,15 @@ local userConfigurableSettings =
 	["nameplateShowComboPoints"]	= true,
 }
 
+-- The default colour used for when the game cannot determine the class type of a player or NPC.
+local defaultNameplateColour = 
+{ 
+	r = 0.541,
+	g = 0.122, 
+	b = 0.184, 
+	hex = "ff8a1f2f" 
+}
+
 --The class colours for each class, to be shown on the nameplates.
 local classColours =
 {
