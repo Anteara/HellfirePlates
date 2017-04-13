@@ -1,0 +1,237 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+	
+	<!-- 
+		######################################################################################################
+		  This frame is the options frame for HellfirePlates. It controls all the user-configurable settings. 
+		######################################################################################################
+	-->
+	<Frame name="Hellfire_Options" enableMouse="true" movable="true" parent="UIParent" resizable="true" hidden="true">
+		<Scripts>
+			<OnLoad>
+				this:RegisterForDrag("LeftButton");
+			</OnLoad>
+			<OnDragStart>
+				this:StartMoving();
+				this.isMoving = true;
+			</OnDragStart>
+			<OnDragStop>
+				this:StopMovingOrSizing();
+				this.isMoving = false;
+			</OnDragStop>
+		</Scripts>
+		<Anchors>
+			<Anchor point="TOP"/>
+		</Anchors>
+		<Backdrop bgFile="Interface\BUTTONS\WHITE8X8" edgeFile="Interface\DialogFrame\UI-DialogBox-Background" tile="true">
+			<Color r="0.118" g="0.118" b="0.118" a="1"/>
+			<BackgroundInsets>
+				<AbsInset left="0" right="0" top="0" bottom="0"/>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="8"/>
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="4"/>
+			</EdgeSize>
+		</Backdrop>
+
+
+		<!-- 
+			######################################################################################################
+							  The layers live here, which include the TEXT for the CHECKBOXES
+			######################################################################################################
+		-->
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="hellfire_plates_config_header" parentKey="title" inherits="GameFontNormal" text="|cffff0000Hellfire|cffffffffPlates: |cffe3df02ShaguPlates Port to TBC.">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset x="-0" y="-8"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<Texture name="horizontal_rule" file="Interface\BUTTONS\WHITE8X8">
+					<Color r="1.0" g="1.0" b="1.0" a="0.3"/>
+					<Size x="350" y="1"/>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-30"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="enableAddonFunctionality_text" parentKey="title" inherits="GameFontWhite" text="Enable/Disable The Addon">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="75" y="-48"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="classColourFriendly_text" parentKey="title" inherits="GameFontWhite" text="Enable Class Colours on Friendly Nameplates">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="75" y="-78"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="classColourEnemy_text" parentKey="title" inherits="GameFontWhite" text="Enable Class Colours on Enemy Nameplates">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="75" y="-108"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="nameplateShowHP_text" parentKey="title" inherits="GameFontWhite" text="Display HP on Nameplates">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="75" y="-138"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="nameplateShowCastbar_text" parentKey="title" inherits="GameFontWhite" text="Show Castbar Under Nameplates">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="75" y="-168"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="nameplateshowDebuffs_text" parentKey="title" inherits="GameFontWhite" text="Show Debuffs Under Nameplates">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="75" y="-198"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="nameplateShowComboPoints_text" parentKey="title" inherits="GameFontWhite" text="Show Combo Points Above Targetted Nameplate">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="75" y="-228"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<!-- 
+				######################################################################################################
+							The BUTTONS live here, which include the CHECKBOXES and the CLOSE/CANCEL buttons
+				######################################################################################################
+			-->
+			<Button parent="Hellfire_Options">
+				<Scripts>
+					<OnClick>
+						Hellfire_Options:Hide();
+					</OnClick>
+				</Scripts>
+				<Size x="25" y="25"/>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="4" y="4"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture    file="Interface\BUTTONS\UI-Panel-MinimizeButton-Up" />
+				<HighlightTexture file="Interface\BUTTONS\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+				<PushedTexture    file="Interface\BUTTONS\UI-Panel-MinimizeButton-Down" />
+			</Button>
+
+			<!-- ############################## -->
+			<!-- The config settings start here -->
+			<!-- ############################## -->
+			<CheckButton name="enableAddonFunctionality_checkbox" inherits="OptionsCheckButtonTemplate" checked="false">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="45" y="-40"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="classColourFriendly_checkbox" inherits="OptionsCheckButtonTemplate" checked="false">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="45" y="-70"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="classColourEnemy_checkbox" inherits="OptionsCheckButtonTemplate" checked="false">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="45" y="-100"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="nameplateShowHP_checkbox" inherits="OptionsCheckButtonTemplate" checked="false">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="45" y="-130"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="nameplateShowCastbar_checkbox" inherits="OptionsCheckButtonTemplate" checked="false">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="45" y="-160"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="nameplateshowDebuffs_checkbox" inherits="OptionsCheckButtonTemplate" checked="false">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="45" y="-190"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="nameplateShowComboPoints_checkbox" inherits="OptionsCheckButtonTemplate" checked="false">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="45" y="-220"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+
+			<!-- ############################# -->
+			<!-- The close/cancel buttons here  -->
+			<!-- ############################# -->
+			<Button name="bottom_cancel_button"  inherits="UIPanelButtonTemplate" text="Cancel">
+				<Size x="85" y="30"/>
+				<Anchors>
+					<Anchor point="BOTTOM">
+						<Offset>
+							<AbsDimension x="-43" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="bottom_close_button" inherits="UIPanelButtonTemplate" text="Close">
+				<Scripts>
+					<OnClick>
+						Hellfire_Options:Hide();
+					</OnClick>
+				</Scripts>
+				<Size x="85" y="30"/>
+				<Anchors>
+					<Anchor point="BOTTOM">
+						<Offset>
+							<AbsDimension x="43" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+		</Frames>
+	</Frame>
+</Ui>
