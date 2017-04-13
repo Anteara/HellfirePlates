@@ -43,7 +43,6 @@ function round(input, places)
   end
 end
 
-
 -- Create Nameplate
 function pfNameplates:CreateNameplate()
   local healthbar = this:GetChildren()
@@ -68,7 +67,7 @@ function pfNameplates:CreateNameplate()
   glow:SetAlpha(0)
   glow.Show = function() return end
 
-  if pfNameplates_config.players == "1" then
+  if pfNameplates_config["players"] == "1" then
     if not pfNameplates.players[name:GetText()] or not pfNameplates.players[name:GetText()]["class"] then
       this:Hide()
     end
@@ -77,7 +76,7 @@ function pfNameplates:CreateNameplate()
   -- healthbar
   healthbar:SetStatusBarTexture("Interface\\AddOns\\HellfirePlates\\img\\bar")
   healthbar:ClearAllPoints()
-  healthbar:SetPoint("TOP", this, "TOP", 0, tonumber(pfNameplates_config.vpos))
+  healthbar:SetPoint("TOP", this, "TOP", 0, tonumber(pfNameplates_config["vpos"]))
   healthbar:SetWidth(110)
   healthbar:SetHeight(7)
 
@@ -94,8 +93,8 @@ function pfNameplates:CreateNameplate()
 
   -- raidtarget
   raidicon:ClearAllPoints()
-  raidicon:SetWidth(pfNameplates_config.raidiconsize)
-  raidicon:SetHeight(pfNameplates_config.raidiconsize)
+  raidicon:SetWidth(pfNameplates_config["raidiconsize"])
+  raidicon:SetHeight(pfNameplates_config["raidiconsize"])
   raidicon:SetPoint("CENTER", healthbar, "CENTER", 0, -5)
 
   -- adjust font
@@ -208,7 +207,7 @@ function pfNameplates:CreateCastbar(healthbar)
 end
 
 function pfNameplates:CreateHP(healthbar)
-  if pfNameplates_config.showhp == "1" and not healthbar.hptext then
+  if pfNameplates_config["showhp"] == "1" and not healthbar.hptext then
     healthbar.hptext = healthbar:CreateFontString("Status", "DIALOG", "GameFontNormal")
     healthbar.hptext:SetPoint("RIGHT", healthbar, "RIGHT")
     healthbar.hptext:SetNonSpaceWrap(false)
@@ -225,13 +224,13 @@ function pfNameplates:UpdateNameplate()
   local healthbar = this:GetChildren()
   local border, glow, levelicon, raidicon, name, level = this:GetRegions()
 
-  if pfNameplates_config.players == "1" then
+  if pfNameplates_config["players"] == "1" then
     if not pfNameplates.players[name:GetText()] or not pfNameplates.players[name:GetText()]["class"] then
       this:Hide()
     end
   end
 
---   pfNameplates:UpdatePlayer(name)
+  pfNameplates:UpdatePlayer(name)
   pfNameplates:UpdateColors(name, level, healthbar)
   pfNameplates:UpdateCastbar(this, name, healthbar)
   pfNameplates:UpdateDebuffs(this, healthbar)
@@ -252,7 +251,6 @@ function pfNameplates:UpdatePlayer(name)
       pfNameplates.mobs[name] = elite
     end
     pfNameplates.targets[name] = "OK"
-    ClearTarget()
   end
 
   -- mouseover
@@ -344,7 +342,7 @@ function pfNameplates:UpdateCastbar(frame, name, healthbar)
       healthbar.castbar:SetMinMaxValues(0,  pfCastbar.casterDB[name:GetText()]["casttime"])
       healthbar.castbar:SetValue(GetTime() -  pfCastbar.casterDB[name:GetText()]["starttime"])
       healthbar.castbar.text:SetText(round( pfCastbar.casterDB[name:GetText()]["starttime"] +  pfCastbar.casterDB[name:GetText()]["casttime"] - GetTime(),1))
-      if pfNameplates_config.spellname == "1" and healthbar.castbar.spell then
+      if pfNameplates_config["spellname"] == "1" and healthbar.castbar.spell then
         healthbar.castbar.spell:SetText(pfCastbar.casterDB[name:GetText()]["cast"])
       else
         healthbar.castbar.spell:SetText("")
@@ -390,7 +388,7 @@ function pfNameplates:UpdateDebuffs(frame, healthbar)
 end
 
 function pfNameplates:UpdateHP(healthbar)
-  if pfNameplates_config.showhp == "1" and healthbar.hptext then
+  if pfNameplates_config["showhp"] == "1" and healthbar.hptext then
     local min, max = healthbar:GetMinMaxValues()
     local cur = healthbar:GetValue()
     healthbar.hptext:SetText(cur .. " / " .. max)

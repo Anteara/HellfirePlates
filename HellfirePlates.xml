@@ -9,6 +9,7 @@
 		<Scripts>
 			<OnLoad>
 				this:RegisterForDrag("LeftButton");
+				SetCurrentConfiguration();
 			</OnLoad>
 			<OnDragStart>
 				this:StartMoving();
@@ -68,49 +69,49 @@
 						</Anchor>
 					</Anchors>
 				</Texture>
-				<FontString name="test" parentKey="title" inherits="GameFontWhite" text="Enable/Disable The Addon">
+				<FontString name="enableAddonFunctionality_text" parentKey="title" inherits="GameFontWhite" text="Enable/Disable The Addon">
 					<Anchors>
 						<Anchor point="TOPLEFT">
 							<Offset x="75" y="-48"/>
 						</Anchor>
 					</Anchors>
 				</FontString>
-				<FontString name="test" parentKey="title" inherits="GameFontWhite" text="Enable Class Colours on Friendly Nameplates">
+				<FontString name="classColourFriendly_text" parentKey="title" inherits="GameFontWhite" text="Enable Class Colours on Friendly Nameplates">
 					<Anchors>
 						<Anchor point="TOPLEFT">
 							<Offset x="75" y="-78"/>
 						</Anchor>
 					</Anchors>
 				</FontString>
-				<FontString name="test" parentKey="title" inherits="GameFontWhite" text="Enable Class Colours on Enemy Nameplates">
+				<FontString name="classColourEnemy_text" parentKey="title" inherits="GameFontWhite" text="Enable Class Colours on Enemy Nameplates">
 					<Anchors>
 						<Anchor point="TOPLEFT">
 							<Offset x="75" y="-108"/>
 						</Anchor>
 					</Anchors>
 				</FontString>
-				<FontString name="test" parentKey="title" inherits="GameFontWhite" text="Display HP on Nameplates">
+				<FontString name="nameplateShowHP_text" parentKey="title" inherits="GameFontWhite" text="Display HP on Nameplates">
 					<Anchors>
 						<Anchor point="TOPLEFT">
 							<Offset x="75" y="-138"/>
 						</Anchor>
 					</Anchors>
 				</FontString>
-				<FontString name="test" parentKey="title" inherits="GameFontWhite" text="Show Castbar Under Nameplates">
+				<FontString name="nameplateShowCastbar_text" parentKey="title" inherits="GameFontWhite" text="Show Castbar Under Nameplates">
 					<Anchors>
 						<Anchor point="TOPLEFT">
 							<Offset x="75" y="-168"/>
 						</Anchor>
 					</Anchors>
 				</FontString>
-				<FontString name="test" parentKey="title" inherits="GameFontWhite" text="Show Debuffs Under Nameplates">
+				<FontString name="nameplateshowDebuffs_text" parentKey="title" inherits="GameFontWhite" text="Show Debuffs Under Nameplates">
 					<Anchors>
 						<Anchor point="TOPLEFT">
 							<Offset x="75" y="-198"/>
 						</Anchor>
 					</Anchors>
 				</FontString>
-				<FontString name="test" parentKey="title" inherits="GameFontWhite" text="Show Combo Points Above Targetted Nameplate">
+				<FontString name="nameplateShowComboPoints_text" parentKey="title" inherits="GameFontWhite" text="Show Combo Points Above Targetted Nameplate">
 					<Anchors>
 						<Anchor point="TOPLEFT">
 							<Offset x="75" y="-228"/>
@@ -147,7 +148,7 @@
 			<!-- ############################## -->
 			<!-- The config settings start here -->
 			<!-- ############################## -->
-			<CheckButton name="test" inherits="OptionsCheckButtonTemplate" checked="false">
+			<CheckButton name="enableAddonFunctionality_checkbox" inherits="OptionsCheckButtonTemplate" >
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
@@ -156,7 +157,7 @@
 					</Anchor>
 				</Anchors>
 			</CheckButton>
-			<CheckButton name="test" inherits="OptionsCheckButtonTemplate" checked="false">
+			<CheckButton name="classColourFriendly_checkbox" inherits="OptionsCheckButtonTemplate" >
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
@@ -165,7 +166,7 @@
 					</Anchor>
 				</Anchors>
 			</CheckButton>
-			<CheckButton name="test" inherits="OptionsCheckButtonTemplate" checked="false">
+			<CheckButton name="classColourEnemy_checkbox" inherits="OptionsCheckButtonTemplate" >
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
@@ -174,7 +175,16 @@
 					</Anchor>
 				</Anchors>
 			</CheckButton>
-			<CheckButton name="test" inherits="OptionsCheckButtonTemplate" checked="false">
+			<CheckButton name="nameplateShowHP_checkbox" inherits="OptionsCheckButtonTemplate" >
+				<Scripts>
+					<OnClick>
+						if (pfNameplates_config["showhp"] == 1) then
+							pfNameplates_config["showhp"] = 0
+						else
+							pfNameplates_config["showhp"] = 1
+						end
+					</OnClick>
+				</Scripts>
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
@@ -183,7 +193,7 @@
 					</Anchor>
 				</Anchors>
 			</CheckButton>
-			<CheckButton name="test" inherits="OptionsCheckButtonTemplate" checked="false">
+			<CheckButton name="nameplateShowCastbar_checkbox" inherits="OptionsCheckButtonTemplate" >
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
@@ -192,7 +202,7 @@
 					</Anchor>
 				</Anchors>
 			</CheckButton>
-			<CheckButton name="test" inherits="OptionsCheckButtonTemplate" checked="false">
+			<CheckButton name="nameplateshowDebuffs_checkbox" inherits="OptionsCheckButtonTemplate" >
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
@@ -201,7 +211,7 @@
 					</Anchor>
 				</Anchors>
 			</CheckButton>
-			<CheckButton name="test" inherits="OptionsCheckButtonTemplate" checked="false">
+			<CheckButton name="nameplateShowComboPoints_checkbox" inherits="OptionsCheckButtonTemplate" >
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>

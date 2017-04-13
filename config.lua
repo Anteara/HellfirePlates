@@ -1,3 +1,37 @@
+--Check if the saved variable has been set yet:
+if (pfNameplates_config == nil) then
+	--non user configurable settings
+	-- pfNameplates_config["players"]
+	-- pfNameplates_config["vpos"]
+	-- pfNameplates_config["raidiconsize"]
+	-- pfNameplates_config["spellname"]
+
+	-- --user configurable settings
+	-- pfNameplates_config["showhp"]
+	-- pfNameplates_config["showdebuffs"]
+	-- pfNameplates_config["enemyclassc"]
+	-- pfNameplates_config["friendclassc"] 
+	-- pfNameplates_config["showcastbar"]
+end
+
+--A function to set the state of configuration the first time the configuration frame is loaded.
+function SetCurrentConfiguration()
+	-- enableAddonFunctionality_checkbox
+	-- classColourFriendly_checkbox
+	-- classColourEnemy_checkbox
+
+	if (pfNameplates_config["showhp"] == 1) then
+		nameplateShowHP_checkbox:SetChecked(true)
+	else
+		nameplateShowHP_checkbox:SetChecked(false)
+	end
+
+	-- nameplateShowCastbar_checkbox
+	-- nameplateshowDebuffs_checkbox
+	-- nameplateShowComboPoints_checkbox
+end
+
+
 --Settings that the user can configure himself.
 local userConfigurableSettings = 
 {
