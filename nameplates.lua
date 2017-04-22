@@ -67,7 +67,7 @@ function pfNameplates:CreateNameplate()
   glow:SetAlpha(0)
   glow.Show = function() return end
 
-  if pfNameplates_config["players"] == "1" then
+  if hellfirePlates_configSettings["players"] == "1" then
     if not pfNameplates.players[name:GetText()] or not pfNameplates.players[name:GetText()]["class"] then
       this:Hide()
     end
@@ -76,7 +76,7 @@ function pfNameplates:CreateNameplate()
   -- healthbar
   healthbar:SetStatusBarTexture("Interface\\AddOns\\HellfirePlates\\img\\bar")
   healthbar:ClearAllPoints()
-  healthbar:SetPoint("TOP", this, "TOP", 0, tonumber(pfNameplates_config["vpos"]))
+  healthbar:SetPoint("TOP", this, "TOP", 0, tonumber(hellfirePlates_configSettings["vpos"]))
   healthbar:SetWidth(110)
   healthbar:SetHeight(7)
 
@@ -93,9 +93,10 @@ function pfNameplates:CreateNameplate()
 
   -- raidtarget
   raidicon:ClearAllPoints()
-  raidicon:SetWidth(pfNameplates_config["raidiconsize"])
-  raidicon:SetHeight(pfNameplates_config["raidiconsize"])
-  raidicon:SetPoint("CENTER", healthbar, "CENTER", 0, -5)
+--   DEFAULT_CHAT_FRAME:AddMessage(hellfirePlates_configSettings["raidiconsize"])
+  raidicon:SetWidth(hellfirePlates_configSettings["raidiconsize"])
+  raidicon:SetHeight(hellfirePlates_configSettings["raidiconsize"])
+  raidicon:SetPoint("CENTER", healthbar, "CENTER", 0, 0)
 
   -- adjust font
   name:SetFont(STANDARD_TEXT_FONT,12,"OUTLINE")
@@ -125,7 +126,7 @@ function pfNameplates:CreateNameplate()
 end
 
 function pfNameplates:CreateDebuffs(frame)
-  if pfNameplates_config["showdebuffs"] ~= "1" then return end
+  if hellfirePlates_configSettings["nameplateShowDebuffs"] ~= "1" then return end
 
   if frame.debuffs == nil then frame.debuffs = {} end
   for j=1, 16, 1 do
@@ -207,7 +208,7 @@ function pfNameplates:CreateCastbar(healthbar)
 end
 
 function pfNameplates:CreateHP(healthbar)
-  if pfNameplates_config["showhp"] == "1" and not healthbar.hptext then
+  if hellfirePlates_configSettings["nameplateShowHP"] == "1" and not healthbar.hptext then
     healthbar.hptext = healthbar:CreateFontString("Status", "DIALOG", "GameFontNormal")
     healthbar.hptext:SetPoint("RIGHT", healthbar, "RIGHT")
     healthbar.hptext:SetNonSpaceWrap(false)
@@ -222,9 +223,11 @@ function pfNameplates:UpdateNameplate()
   if not this.setup then pfNameplates:CreateNameplate() return end
 
   local healthbar = this:GetChildren()
-  local border, glow, levelicon, raidicon, name, level = this:GetRegions()
 
-  if pfNameplates_config["players"] == "1" then
+  local border, _, _, glow, name, level, levelicon, raidicon = this:GetRegions()
+
+
+  if hellfirePlates_configSettings["players"] == "1" then
     if not pfNameplates.players[name:GetText()] or not pfNameplates.players[name:GetText()]["class"] then
       this:Hide()
     end
@@ -304,7 +307,7 @@ function pfNameplates:UpdateColors(name, level, healthbar)
   local name = name:GetText()
 
   if healthbar.reaction == 0 then
-    if pfNameplates_config["enemyclassc"] == "1"
+    if hellfirePlates_configSettings["classColourEnemy"] == "1"
     and pfNameplates.players[name]
     and pfNameplates.players[name]["class"]
     and RAID_CLASS_COLORS[pfNameplates.players[name]["class"]]
@@ -316,7 +319,7 @@ function pfNameplates:UpdateColors(name, level, healthbar)
         0.9)
     end
   elseif healthbar.reaction == 2 then
-    if pfNameplates_config["friendclassc"] == "1"
+    if hellfirePlates_configSettings["classColourFriendly"] == "1"
     and pfNameplates.players[name]
     and pfNameplates.players[name]["class"]
     and RAID_CLASS_COLORS[pfNameplates.players[name]["class"]]
@@ -334,7 +337,7 @@ function pfNameplates:UpdateCastbar(frame, name, healthbar)
   if not healthbar.castbar then return end
 
   -- show castbar
-  if pfNameplates_config["showcastbar"] == "1" and pfCastbar.casterDB[name:GetText()] ~= nil and pfCastbar.casterDB[name:GetText()]["cast"] ~= nil then
+  if hellfirePlates_configSettings["nameplateShowCastbar"] == "1" and pfCastbar.casterDB[name:GetText()] ~= nil and pfCastbar.casterDB[name:GetText()]["cast"] ~= nil then
     if pfCastbar.casterDB[name:GetText()]["starttime"] + pfCastbar.casterDB[name:GetText()]["casttime"] <= GetTime() then
       pfCastbar.casterDB[name:GetText()] = nil
       healthbar.castbar:Hide()
@@ -342,7 +345,7 @@ function pfNameplates:UpdateCastbar(frame, name, healthbar)
       healthbar.castbar:SetMinMaxValues(0,  pfCastbar.casterDB[name:GetText()]["casttime"])
       healthbar.castbar:SetValue(GetTime() -  pfCastbar.casterDB[name:GetText()]["starttime"])
       healthbar.castbar.text:SetText(round( pfCastbar.casterDB[name:GetText()]["starttime"] +  pfCastbar.casterDB[name:GetText()]["casttime"] - GetTime(),1))
-      if pfNameplates_config["spellname"] == "1" and healthbar.castbar.spell then
+      if hellfirePlates_configSettings["spellname"] == "1" and healthbar.castbar.spell then
         healthbar.castbar.spell:SetText(pfCastbar.casterDB[name:GetText()]["cast"])
       else
         healthbar.castbar.spell:SetText("")
@@ -366,7 +369,7 @@ function pfNameplates:UpdateCastbar(frame, name, healthbar)
 end
 
 function pfNameplates:UpdateDebuffs(frame, healthbar)
-  if not frame.debuffs or pfNameplates_config["showdebuffs"] ~= "1" then return end
+  if not frame.debuffs or hellfirePlates_configSettings["nameplateShowDebuffs"] ~= "1" then return end
 
   if UnitExists("target") and healthbar:GetAlpha() == 1 then
   local j = 1
@@ -388,7 +391,7 @@ function pfNameplates:UpdateDebuffs(frame, healthbar)
 end
 
 function pfNameplates:UpdateHP(healthbar)
-  if pfNameplates_config["showhp"] == "1" and healthbar.hptext then
+  if hellfirePlates_configSettings["nameplateShowHP"] == "1" and healthbar.hptext then
     local min, max = healthbar:GetMinMaxValues()
     local cur = healthbar:GetValue()
     healthbar.hptext:SetText(cur .. " / " .. max)

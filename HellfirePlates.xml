@@ -9,8 +9,31 @@
 		<Scripts>
 			<OnLoad>
 				this:RegisterForDrag("LeftButton");
-				SetCurrentConfiguration();
+				this:RegisterEvent("ADDON_LOADED"); -- Fired when saved variables are loaded
+				this:RegisterEvent("PLAYER_LOGOUT"); -- Fired when about to log out
 			</OnLoad>
+			<OnEvent>
+				if event == "ADDON_LOADED" then
+					if not hellfirePlates_configSettings then
+						-- non user configurable settings
+						hellfirePlates_configSettings = {
+							["players"]								= 1,
+							["vpos"]								= 1,
+							["raidiconsize"]						= 15, --15PX X AND Y
+							["spellname"]							= 1,
+
+							-- --user configurable settings
+							["enableAddonFunctionality_checkbox"]	= 1,
+							["nameplateShowHP"]						= 1,
+							["nameplateShowDebuffs"]				= 1,
+							["classColourEnemy"]					= 1,
+							["classColourFriendly"] 				= 1,
+							["nameplateShowCastbar"]				= 1,
+							["nameplateShowComboPoints"] 			= 1
+						}
+					end
+				end
+			</OnEvent>
 			<OnDragStart>
 				this:StartMoving();
 				this.isMoving = true;
@@ -104,7 +127,7 @@
 						</Anchor>
 					</Anchors>
 				</FontString>
-				<FontString name="nameplateshowDebuffs_text" parentKey="title" inherits="GameFontWhite" text="Show Debuffs Under Nameplates">
+				<FontString name="nameplateShowDebuffs_text" parentKey="title" inherits="GameFontWhite" text="Show Debuffs Under Nameplates">
 					<Anchors>
 						<Anchor point="TOPLEFT">
 							<Offset x="75" y="-198"/>
@@ -178,10 +201,10 @@
 			<CheckButton name="nameplateShowHP_checkbox" inherits="OptionsCheckButtonTemplate" >
 				<Scripts>
 					<OnClick>
-						if (pfNameplates_config["showhp"] == 1) then
-							pfNameplates_config["showhp"] = 0
+						if (hellfirePlates_configSettings["nameplateShowHP"] == 1) then
+							hellfirePlates_configSettings["nameplateShowHP"] = 0
 						else
-							pfNameplates_config["showhp"] = 1
+							hellfirePlates_configSettings["nameplateShowHP"] = 1
 						end
 					</OnClick>
 				</Scripts>
@@ -202,7 +225,7 @@
 					</Anchor>
 				</Anchors>
 			</CheckButton>
-			<CheckButton name="nameplateshowDebuffs_checkbox" inherits="OptionsCheckButtonTemplate" >
+			<CheckButton name="nameplateShowDebuffs_checkbox" inherits="OptionsCheckButtonTemplate" >
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>

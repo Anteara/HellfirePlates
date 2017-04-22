@@ -3,9 +3,9 @@
 ## Author: Created by Shagu, ported to TBC by Anteara
 ## Notes: Nameplate addon featuring castbars and class colors
 ## Version: 2.0
-## SavedVariables: pfNameplates_config
+## SavedVariables: hellfirePlates_configSettings
 
-config.lua
 HellfirePlates.xml
+config.lua
 castbar.lua
 nameplates.lua
