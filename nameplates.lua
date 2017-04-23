@@ -208,14 +208,14 @@ function pfNameplates:CreateCastbar(healthbar)
 end
 
 function pfNameplates:CreateHP(healthbar)
-  if hellfirePlates_configSettings["nameplateShowHP"] == "1" and not healthbar.hptext then
-    healthbar.hptext = healthbar:CreateFontString("Status", "DIALOG", "GameFontNormal")
-    healthbar.hptext:SetPoint("RIGHT", healthbar, "RIGHT")
-    healthbar.hptext:SetNonSpaceWrap(false)
-    healthbar.hptext:SetFontObject(GameFontWhite)
-    healthbar.hptext:SetTextColor(1,1,1,1)
-    healthbar.hptext:SetFont(STANDARD_TEXT_FONT, 10)
-  end
+	if hellfirePlates_configSettings["nameplateShowHP"] == 1 and not healthbar.hptext then
+		healthbar.hptext = healthbar:CreateFontString("Status", "DIALOG", "GameFontNormal")
+		healthbar.hptext:SetPoint("RIGHT", healthbar, "RIGHT")
+		healthbar.hptext:SetNonSpaceWrap(false)
+		healthbar.hptext:SetFontObject(GameFontWhite)
+		healthbar.hptext:SetTextColor(1,1,1,1)
+		healthbar.hptext:SetFont(STANDARD_TEXT_FONT, 10)
+	end
 end
 
 -- Update Nameplate
@@ -391,11 +391,11 @@ function pfNameplates:UpdateDebuffs(frame, healthbar)
 end
 
 function pfNameplates:UpdateHP(healthbar)
-  if hellfirePlates_configSettings["nameplateShowHP"] == "1" and healthbar.hptext then
-    local min, max = healthbar:GetMinMaxValues()
-    local cur = healthbar:GetValue()
-    healthbar.hptext:SetText(cur .. " / " .. max)
-  end
+	if hellfirePlates_configSettings["nameplateShowHP"] == 1 and healthbar.hptext then
+		local min, max = healthbar:GetMinMaxValues()
+		local cur = healthbar:GetValue()
+		healthbar.hptext:SetText(cur .. " / " .. max)
+	end
 end
 
 -- debuff detection
